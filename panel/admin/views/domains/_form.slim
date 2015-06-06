@@ -1,0 +1,49 @@
+- error = @domain.errors.include?(:domain)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :domain, :class => 'control-label'
+  div class='controls'
+    = f.text_field :domain, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    span class='help-inline' = error ? f.error_message_on(:domain, :class => 'text-error') : pat(:example)
+- error = @domain.errors.include?(:users)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :users, :class => 'control-label'
+  div class='controls'
+    = f.text_field :users, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:users, :class => 'text-error') : pat(:example)
+- error = @domain.errors.include?(:ip)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :ip, :class => 'control-label'
+  div class='controls'
+    = f.text_field :ip, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:ip, :class => 'text-error') : pat(:example)
+- error = @domain.errors.include?(:arecord)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :arecord, :class => 'control-label'
+  div class='controls'
+    = f.text_field :arecord, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:arecord, :class => 'text-error') : pat(:example)
+- error = @domain.errors.include?(:cnames)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :cnames, :class => 'control-label'
+  div class='controls'
+    = f.text_field :cnames, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:cnames, :class => 'text-error') : pat(:example)
+- error = @domain.errors.include?(:subdomains)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :subdomains, :class => 'control-label'
+  div class='controls'
+    = f.text_field :subdomains, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:subdomains, :class => 'text-error') : pat(:example)
+- error = @domain.errors.include?(:options)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :options, :class => 'control-label'
+  div class='controls'
+    = f.text_field :options, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:options, :class => 'text-error') : pat(:example)
+
+div class="form-actions"
+  = f.submit pat(:save), :class => 'btn btn-primary'
+  |&nbsp;
+  = f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue'
+  |&nbsp;
+  = link_to pat(:cancel), url(:domains, :index), :class => 'btn btn-default'

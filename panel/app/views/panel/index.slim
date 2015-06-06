@@ -1,0 +1,9 @@
+h2 Domains:
+- unless @domains.blank?
+  table#domains
+    - @domains.each do |domain|
+      tr
+        td.domain = domain.domain
+- else
+  p No domains for the user #{@name}
+p #{authorized?}

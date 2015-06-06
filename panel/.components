@@ -1,0 +1,10 @@
+---
+:orm: mongomapper
+:test: cucumber
+:mock: none
+:script: none
+:renderer: slim
+:stylesheet: none
+:namespace: Panel
+:migration_format: number
+:admin_renderer: slim

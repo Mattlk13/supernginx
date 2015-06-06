@@ -1,0 +1,11 @@
+---
+:hierarchy:
+  - "%{::hostname}"
+  - "locations/%{::location}"
+  - "environments/%{::envname}"
+  - "profiles/%{::profile}"
+  - common
+:backends:
+  - yaml
+:yaml:
+  :datadir: '/vagrant/puppet/hieradata'

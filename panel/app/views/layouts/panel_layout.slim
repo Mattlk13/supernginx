@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title SuperNginx control panel
+    meta name="keywords" content="template language"
+    meta name="author" content="author"
+    javascript:
+      alert('I still don't know how to use javascript!')
+
+  body
+    h1 Hi #{session[:name]}!
+    h1 Welcome to the SuperNginx hosting control panel
+    p This is going to be fast, scalable, easy and awesome... and GPL
+    #content
+    == yield
