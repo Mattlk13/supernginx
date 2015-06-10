@@ -19,6 +19,7 @@ Panel::App.controllers :panel do
         @name = session[:name]
         @check = Domain.find_by_users(@name).blank?
         @domains = Domain.where(:users => @name).all if not Domain.find_by_users(@name).blank?
+        @mails = Mail.all
         render 'index', :layout => 'panel_layout'
       else
         redirect_to '/login'
@@ -30,7 +31,9 @@ Panel::App.controllers :panel do
       session[:name] = @auth.credentials.first 
       render 'login', :layout => 'panel_layout'
     end
-    
+    get :all_urls, :map => '/*' do
+      puts request.path
+    end
    #get :sample, :map => '/session', :provides => [:any, :js] do
    #  case content_type
    #    when :js then ...

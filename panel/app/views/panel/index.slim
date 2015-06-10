@@ -1,9 +1,27 @@
+javascript:
+  function httpGet(theUrl)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false );
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
 h2 Domains:
 - unless @domains.blank?
   table#domains
     - @domains.each do |domain|
       tr
-        td.domain = domain.domain
+        td.domain <button type="button" id=#{domain.domain}
+          onclick=httpGet(this.id)>
+          #{domain.domain}</button>
 - else
   p No domains for the user #{@name}
+h2 mails:
+- unless @mails.blank?
+  table#mails
+    - @mails.each do |mail|
+      tr
+        td.mail #{mail.name}@#{mail.domain}
+- else
+  p No mails #{@name}
 p #{authorized?}
