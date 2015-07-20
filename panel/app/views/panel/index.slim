@@ -6,16 +6,28 @@ javascript:
         xmlHttp.send( null );
         return xmlHttp.responseText;
     }
+  $(document).ready(function(){
+    $("li").click(function(){
+      var currentId = $(this).attr('id');
+      $.get("/domains", { domain: currentId } );
+    });
+  });
 h2 Domains:
 - unless @domains.blank?
-  table#domains
-    - @domains.each do |domain|
-      tr
-        td.domain <button type="button" id=#{domain.domain}
-          onclick=httpGet(this.id)>
-          #{domain.domain}</button>
+  .dropdown
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    ul.dropdown-menu
+      - @domains.each do |domain|
+        li(id=domain.domain): a href="#" #{domain.domain}
 - else
   p No domains for the user #{@name}
+
+nav
+  ul
+    li: a href="#" one
+    li: a href="#" two
+
 h2 mails:
 - unless @mails.blank?
   table#mails

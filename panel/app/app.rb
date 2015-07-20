@@ -1,5 +1,6 @@
 module Panel
   class App < Padrino::Application
+    register SassInitializer
     register Padrino::Mailer
     register Padrino::Helpers
 

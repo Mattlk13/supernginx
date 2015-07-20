@@ -4,10 +4,12 @@ html
     title SuperNginx control panel
     meta name="keywords" content="template language"
     meta name="author" content="author"
-    javascript:
-      alert('I still don't know how to use javascript!')
-
+    = stylesheet_link_tag 'panel'
+    = javascript_include_tag 'jquery-1.11.3.min'
+    = javascript_include_tag 'bootstrap'
+    
   body
+
     h1 Hi #{session[:name]}!
     h1 Welcome to the SuperNginx hosting control panel
     p This is going to be fast, scalable, easy and awesome... and GPL

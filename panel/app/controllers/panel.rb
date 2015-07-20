@@ -28,13 +28,15 @@ Panel::App.controllers :panel do
     
     get :login, :map => '/login' do
       protected!
-      session[:name] = @auth.credentials.first 
+      session[:name] = @auth.credentials.first
       render 'login', :layout => 'panel_layout'
     end
-    get :all_urls, :map => '/*' do
-      puts request.path
+    # get the domain name and render a new ajax cool thing with the domain stuff
+    get :domains, :map => '/domains' do
+      puts params[:domain]
+      render 'domain'
     end
-   #get :sample, :map => '/session', :provides => [:any, :js] do
+  #get :sample, :map => '/session', :provides => [:any, :js] do
    #  case content_type
    #    when :js then ...
    #    else ...

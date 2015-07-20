@@ -12,13 +12,14 @@ source 'https://rubygems.org'
 
 # Project requirements
 gem 'rake'
-gem 'omniauth'
 
 # Component requirements
-gem 'bcrypt'
+gem 'sass'
 gem 'slim'
 gem 'bson_ext', :require => 'mongo'
 gem 'mongo_mapper'
+gem 'bcrypt'
+gem 'bootstrap-sass'
 
 # Test requirements
 gem 'rspec', :group => 'test'

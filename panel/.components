@@ -2,9 +2,9 @@
 :orm: mongomapper
 :test: cucumber
 :mock: none
-:script: none
+:script: jquery
 :renderer: slim
-:stylesheet: none
+:stylesheet: sass
 :namespace: Panel
 :migration_format: number
 :admin_renderer: slim
