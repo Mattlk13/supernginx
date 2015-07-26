@@ -1,1 +1,1 @@
-mongod --smallfiles --bind_ip=$IP --dbpath=data --nojournal --rest "$@"
+mongod --smallfiles --bind_ip="0.0.0.0" --dbpath=data --nojournal

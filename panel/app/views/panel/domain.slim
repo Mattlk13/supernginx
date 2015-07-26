@@ -1,3 +1,8 @@
-javascript:
-  alert("hi!")
-p hola
+h2 mails:
+- unless @mails.blank?
+  table#mails
+    - @mails.each do |mail|
+      tr
+        td.mail #{mail.name}@#{mail.domain}
+- else
+  p No mails #{@name}

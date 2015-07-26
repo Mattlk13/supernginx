@@ -45,7 +45,7 @@ if [ ! -d /etc/puppet/modules/puppet-galera ]; then
 fi 
 if [ ! -d /usr/local/rvm ]; then
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-    \curl -sSL https://get.rvm.io | bash -s stable --ruby
+    curl -sSL https://get.rvm.io | bash -s stable --ruby
     source /etc/profile.d/rvm.sh
     source /usr/local/rvm/scripts/rvm
     gem install padrino
@@ -62,6 +62,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |v,override|
     override.vm.box = "puppetlabs/debian-7.8-64-nocm"
+    v.memory = 2048
+    v.cpus = 2
   end
 
   config.vm.provision :shell, inline: $script

@@ -1,34 +1,65 @@
 javascript:
-  function httpGet(theUrl)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", theUrl, false );
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-    }
   $(document).ready(function(){
     $("li").click(function(){
       var currentId = $(this).attr('id');
-      $.get("/domains", { domain: currentId } );
+      $.get("/", { domain: currentId } );
     });
   });
-h2 Domains:
 - unless @domains.blank?
   .dropdown
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Domains
     <span class="caret"></span></button>
     ul.dropdown-menu
       - @domains.each do |domain|
-        li(id=domain.domain): a href="#" #{domain.domain}
+        li(id=domain.domain): a data-toggle="modal" href="#" data-target="#mails" #{domain.domain}
 - else
   p No domains for the user #{@name}
 
-h2 mails:
-- unless @mails.blank?
-  table#mails
-    - @mails.each do |mail|
-      tr
-        td.mail #{mail.name}@#{mail.domain}
-- else
-  p No mails #{@name}
-p #{authorized?}
+
+
+
+div.modal.fade id="mails" role="dialog"
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button type="button" class="close" data-dismiss="modal" &times
+        h2 Settings & paypents
+      div class="modal-body"
+        a data-toggle="modal" href="#" data-target="#domain_settings" Settings
+      div.modal-header
+        h2 Mail, lists & aliases
+      div.modal-body
+        - unless @mails.blank?
+          .dropdown
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> e-mail accounts
+            <span class="caret"></span></button>
+            ul.dropdown-menu
+              - @mails.each do |mail|
+                li(id="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="#" data-target="#mail" #{mail.name}@#{mail.domain}
+        - else
+          p No mails for #{@name}
+      div.modal-header
+        h2 Subdomains, redirections & DNS
+      div.modal-header
+        h2 File uploading & (s)ftp accounts
+
+div.modal.fade id="domain_settings" role="dialog"
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button type="button" class="close" data-dismiss="modal" &times
+        h2 Settings & paypents
+      div.modal-body
+        p Some settings here
+
+div.modal.fade id="mail" role="dialog"
+ div.modal-dialog
+   div.modal-content
+     div.modal-header
+       button type="button" class="close" data-dismiss="modal" &times
+       h2 email account settings
+     div.modal-body
+       p Adress: #{@id}
+       p More stuff
+       p ... 
+

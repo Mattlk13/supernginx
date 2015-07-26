@@ -19,7 +19,10 @@ Panel::App.controllers :panel do
         @name = session[:name]
         @check = Domain.find_by_users(@name).blank?
         @domains = Domain.where(:users => @name).all if not Domain.find_by_users(@name).blank?
+        @id = params[:domain] if not params[:domain].blank?
+        puts @id
         @mails = Mail.all
+        puts @id if not @id.blank?
         render 'index', :layout => 'panel_layout'
       else
         redirect_to '/login'
@@ -31,19 +34,5 @@ Panel::App.controllers :panel do
       session[:name] = @auth.credentials.first
       render 'login', :layout => 'panel_layout'
     end
-    # get the domain name and render a new ajax cool thing with the domain stuff
-    get :domains, :map => '/domains' do
-      puts params[:domain]
-      render 'domain'
-    end
-  #get :sample, :map => '/session', :provides => [:any, :js] do
-   #  case content_type
-   #    when :js then ...
-   #    else ...
-   #end
-
-  # get :foo, :with => :id do
-  #   'Maps to url '/foo/#{params[:id]}''
-  # end
 
 end
