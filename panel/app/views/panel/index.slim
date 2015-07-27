@@ -4,11 +4,14 @@ javascript:
       var currentId = $(this).attr('id');
       $.get("/", { domain: currentId } );
     });
+    $("#mail").on("show.bs.modal", function(e) {
+      console.log('am I here?')
+    });
   });
 - unless @domains.blank?
   .dropdown
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Domains
-    <span class="caret"></span></button>
+    button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" Domains
+      <span class="caret"></span></button>
     ul.dropdown-menu
       - @domains.each do |domain|
         li(id=domain.domain): a data-toggle="modal" href="#" data-target="#mails" #{domain.domain}
@@ -22,7 +25,7 @@ div.modal.fade id="mails" role="dialog"
   div.modal-dialog
     div.modal-content
       div.modal-header
-        button type="button" class="close" data-dismiss="modal" &times
+        button.close data-dismiss="modal" &times
         h2 Settings & paypents
       div class="modal-body"
         a data-toggle="modal" href="#" data-target="#domain_settings" Settings
@@ -31,11 +34,11 @@ div.modal.fade id="mails" role="dialog"
       div.modal-body
         - unless @mails.blank?
           .dropdown
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> e-mail accounts
-            <span class="caret"></span></button>
+            button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" e-mail accounts
+              <span class="caret"></span></button>
             ul.dropdown-menu
               - @mails.each do |mail|
-                li(id="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="#" data-target="#mail" #{mail.name}@#{mail.domain}
+                li(id="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="/mail" data-target="#mail" #{mail.name}@#{mail.domain}
         - else
           p No mails for #{@name}
       div.modal-header
@@ -47,19 +50,7 @@ div.modal.fade id="domain_settings" role="dialog"
   div.modal-dialog
     div.modal-content
       div.modal-header
-        button type="button" class="close" data-dismiss="modal" &times
+        buttoni.close data-dismiss="modal" &times
         h2 Settings & paypents
       div.modal-body
         p Some settings here
-
-div.modal.fade id="mail" role="dialog"
- div.modal-dialog
-   div.modal-content
-     div.modal-header
-       button type="button" class="close" data-dismiss="modal" &times
-       h2 email account settings
-     div.modal-body
-       p Adress: #{@id}
-       p More stuff
-       p ... 
-

@@ -20,7 +20,6 @@ Panel::App.controllers :panel do
         @check = Domain.find_by_users(@name).blank?
         @domains = Domain.where(:users => @name).all if not Domain.find_by_users(@name).blank?
         @id = params[:domain] if not params[:domain].blank?
-        puts @id
         @mails = Mail.all
         puts @id if not @id.blank?
         render 'index', :layout => 'panel_layout'
@@ -28,6 +27,11 @@ Panel::App.controllers :panel do
         redirect_to '/login'
       end
     end 
+
+    get :mail, :map => '/mail' do
+      puts 'hi'
+      render 'mail'
+    end
     
     get :login, :map => '/login' do
       protected!

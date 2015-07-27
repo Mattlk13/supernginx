@@ -3,7 +3,6 @@ module Panel
     register SassInitializer
     register Padrino::Mailer
     register Padrino::Helpers
-
     enable :sessions
 
     ##
