@@ -19,9 +19,9 @@ Panel::App.controllers :panel do
         @name = session[:name]
         @check = Domain.find_by_users(@name).blank?
         @domains = Domain.where(:users => @name).all if not Domain.find_by_users(@name).blank?
-        @id = params[:domain] if not params[:domain].blank?
+        @mailaddress = params[:mailaddress] if not params[:mailaddress].blank?
         @mails = Mail.all
-        puts @id if not @id.blank?
+        puts @mailaddress
         render 'index', :layout => 'panel_layout'
       else
         redirect_to '/login'

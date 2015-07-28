@@ -1,13 +1,19 @@
 javascript:
   $(document).ready(function(){
     $("li").click(function(){
-      var currentId = $(this).attr('id');
-      $.get("/", { domain: currentId } );
+      var Mailaddress = $(this).attr('mailaddress');
+      var Id = $(this).attr('id');
+      $.get("/", { mailaddress: Mailaddress } );
     });
-    $("#mail").on("show.bs.modal", function(e) {
-      console.log('am I here?')
+    $('li[id^="mail"]').click(function(){
+      $(this).load("/mail", function(){
+        var Mailaddress = $(this).attr('mailaddress');
+        $('#mailmodal').modal('toggle');
+        console.log("estamos ahi");
+      });
     });
   });
+
 - unless @domains.blank?
   .dropdown
     button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" Domains
@@ -38,14 +44,13 @@ div.modal.fade id="mails" role="dialog"
               <span class="caret"></span></button>
             ul.dropdown-menu
               - @mails.each do |mail|
-                li(id="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="/mail" data-target="#mail" #{mail.name}@#{mail.domain}
+                li(id="mail:#{mail.name}@#{mail.domain}", mailaddress="#{mail.name}@#{mail.domain}"): a href="#" #{mail.name}@#{mail.domain}
         - else
           p No mails for #{@name}
       div.modal-header
         h2 Subdomains, redirections & DNS
       div.modal-header
         h2 File uploading & (s)ftp accounts
-
 div.modal.fade id="domain_settings" role="dialog"
   div.modal-dialog
     div.modal-content
