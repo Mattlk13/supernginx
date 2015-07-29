@@ -24,10 +24,13 @@ It will work also with docker soon ...
 
 This takes a while to start.
 
-You need to redirect your local 80 port to the port 8080 and add panel.supernginx.com to your /etc/hosts file pointing to localhost ex:
+You need to redirect your local 80 port to the local port 8080 and add panel.supernginx.com to your /etc/hosts file pointing to localhost ex:
 
-#echo "127.0.0.1	panel.supernginx.com" >> /etc/hosts
-#ssh user@localhost -L 80::8080
+```
+echo "127.0.0.1	panel.supernginx.com" >> /etc/hosts
+sudo ssh -nNT -L 80:localhost:8080 user@localhost
+```
+Then you'll have the panel up and running at http://panel.supernginx.com
 
 Once the machine is started, ensure you load your mongodb with data, please check Padrino documentation about setting up the admin panel superadmin and loading data via the padrino admin panel.
 
