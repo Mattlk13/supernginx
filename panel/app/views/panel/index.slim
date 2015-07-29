@@ -1,15 +1,11 @@
 javascript:
   $(document).ready(function(){
-    $("li").click(function(){
-      var Mailaddress = $(this).attr('mailaddress');
-      var Id = $(this).attr('id');
-      $.get("/", { mailaddress: Mailaddress } );
-    });
     $('li[id^="mail"]').click(function(){
-      $(this).load("/mail", function(){
-        var Mailaddress = $(this).attr('mailaddress');
-        $('#mailmodal').modal('toggle');
-        console.log("estamos ahi");
+      var Mailaddress = $(this).attr('mailaddress');
+      console.log("mail list item clicked");
+      $("#loadmail").load("/mail?mailaddress=" + Mailaddress, function(){
+        console.log("mail content loaded");
+        console.log(Mailaddress);
       });
     });
   });
@@ -20,21 +16,21 @@ javascript:
       <span class="caret"></span></button>
     ul.dropdown-menu
       - @domains.each do |domain|
-        li(id=domain.domain): a data-toggle="modal" href="#" data-target="#mails" #{domain.domain}
+        li(id=domain.domain): a data-toggle="modal" href="#" data-target="#mails_modal" #{domain.domain}
 - else
   p No domains for the user #{@name}
 
 
 
 
-div.modal.fade id="mails" role="dialog"
+div.modal.fade id="mails_modal" role="dialog"
   div.modal-dialog
     div.modal-content
       div.modal-header
         button.close data-dismiss="modal" &times
         h2 Settings & paypents
       div class="modal-body"
-        a data-toggle="modal" href="#" data-target="#domain_settings" Settings
+        a data-toggle="modal" href="#" data-target="#domain_settings_modal" Settings
       div.modal-header
         h2 Mail, lists & aliases
       div.modal-body
@@ -44,14 +40,15 @@ div.modal.fade id="mails" role="dialog"
               <span class="caret"></span></button>
             ul.dropdown-menu
               - @mails.each do |mail|
-                li(id="mail:#{mail.name}@#{mail.domain}", mailaddress="#{mail.name}@#{mail.domain}"): a href="#" #{mail.name}@#{mail.domain}
+                li(id="mail:#{mail.name}@#{mail.domain}", mailaddress="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="#" data-target="#mail_modal" #{mail.name}@#{mail.domain}
         - else
           p No mails for #{@name}
       div.modal-header
         h2 Subdomains, redirections & DNS
       div.modal-header
         h2 File uploading & (s)ftp accounts
-div.modal.fade id="domain_settings" role="dialog"
+
+div.modal.fade id="domain_settings_modal" role="dialog"
   div.modal-dialog
     div.modal-content
       div.modal-header
@@ -59,3 +56,12 @@ div.modal.fade id="domain_settings" role="dialog"
         h2 Settings & paypents
       div.modal-body
         p Some settings here
+
+div.modal.fade id="mail_modal" role="dialog"
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button type="button" class="close" data-dismiss="modal" &times
+        h2 email account settings
+      div.modal-body
+        p(id="loadmail")
