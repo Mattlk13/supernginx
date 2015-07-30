@@ -1,0 +1,26 @@
+div.modal.fade id="domain_modal" role="dialog"
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button.close data-dismiss="modal" &times
+        h1.text-center #{@domain}
+        h2 Settings & paypents
+      div.modal-body
+        a href="#" Settings
+      div.modal-header
+        h2 Mail, lists & aliases
+      div.modal-body
+        - unless @mails.blank?
+          .dropdown
+            button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" e-mail accounts
+              <span class="caret"></span></button>
+            ul.dropdown-menu
+              - @mails.each do |mail|
+                li(id="mail:#{mail.name}@#{mail.domain}", mailaddress="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="#" data-target="#mail_modal" #{mail.name}@#{mail.domain}
+        - else
+          p No mails for #{@name}
+      div.modal-header
+        h2 Subdomains, redirections & DNS
+      div.modal-header
+        h2 File uploading & (s)ftp accounts
+

@@ -1,5 +1,15 @@
 javascript:
   $(document).ready(function(){
+  $("#content").load("/new_domain").one();
+    $('li[id="domain"]').click(function(){
+      var Domain = $(this).attr('domain');
+      console.log("mail list item clicked");
+      $("#content").load("/domain?domain=" +Domain, function(){
+        $('#domain_modal').modal('show');
+        console.log("domains content loaded");
+        console.log(Domain);
+      });
+    });
     $('li[id^="mail"]').click(function(){
       var Mailaddress = $(this).attr('mailaddress');
       console.log("mail list item clicked");
@@ -16,46 +26,10 @@ javascript:
       <span class="caret"></span></button>
     ul.dropdown-menu
       - @domains.each do |domain|
-        li(id=domain.domain): a data-toggle="modal" href="#" data-target="#mails_modal" #{domain.domain}
+        li(id="domain", domain=domain.domain): a href="#" #{domain.domain}
+      li(id="newdomain"): a data-toggle="modal" data-target="#new_domain_modal" href="#" Add new domain  
 - else
   p No domains for the user #{@name}
-
-
-
-
-div.modal.fade id="mails_modal" role="dialog"
-  div.modal-dialog
-    div.modal-content
-      div.modal-header
-        button.close data-dismiss="modal" &times
-        h2 Settings & paypents
-      div class="modal-body"
-        a data-toggle="modal" href="#" data-target="#domain_settings_modal" Settings
-      div.modal-header
-        h2 Mail, lists & aliases
-      div.modal-body
-        - unless @mails.blank?
-          .dropdown
-            button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" e-mail accounts
-              <span class="caret"></span></button>
-            ul.dropdown-menu
-              - @mails.each do |mail|
-                li(id="mail:#{mail.name}@#{mail.domain}", mailaddress="#{mail.name}@#{mail.domain}"): a data-toggle="modal" href="#" data-target="#mail_modal" #{mail.name}@#{mail.domain}
-        - else
-          p No mails for #{@name}
-      div.modal-header
-        h2 Subdomains, redirections & DNS
-      div.modal-header
-        h2 File uploading & (s)ftp accounts
-
-div.modal.fade id="domain_settings_modal" role="dialog"
-  div.modal-dialog
-    div.modal-content
-      div.modal-header
-        buttoni.close data-dismiss="modal" &times
-        h2 Settings & paypents
-      div.modal-body
-        p Some settings here
 
 div.modal.fade id="mail_modal" role="dialog"
   div.modal-dialog

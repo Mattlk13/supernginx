@@ -29,9 +29,16 @@ Panel::App.controllers :panel do
     get :mail, :map => '/mail' do
       @mailaddress = params[:mailaddress] if not params[:mailaddress].blank?
       puts 'rendering mail content'
-      puts @mailaddress
       render 'mail'
-      
+    end
+    get :domain, :map => '/domain' do
+      @domain = params[:domain] if not params[:domain].blank?
+      puts 'rendering domain content'
+      render 'domain'
+    end
+    get :new_domain, :map => '/new_domain' do
+      puts 'rendering new_domain content'
+      render 'new_domain'
     end
     
     get :login, :map => '/login' do
