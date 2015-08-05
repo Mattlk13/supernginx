@@ -1,5 +1,0 @@
-classes:
-  - timezone
-
-timezone::region: Europe
-timezone::locality: London

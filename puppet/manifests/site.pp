@@ -4,4 +4,5 @@ Package {
   allow_virtual => false,
 }
 
+notice "Profile: ${profile}"
 hiera_include('classes')

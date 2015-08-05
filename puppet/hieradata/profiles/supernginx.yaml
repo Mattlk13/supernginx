@@ -1,2 +1,22 @@
 classes:
-  - roles::supernginx
+  - nginx
+  - mongodb
+  - docker
+
+docker::images:
+  'tutum/lamp':
+  'reinblau/lamp':
+nginx::nginx_upstreams:
+  'panel':
+    ensure: present
+    members:
+      - localhost:3000
+  'dario.com':
+    ensure: present
+    members:
+      - localhost:3001
+nginx::nginx_vhosts:
+  'panel.supernginx.com':
+    proxy: 'http://panel'
+  'dario.com':
+    proxy: 'http://dario.com'

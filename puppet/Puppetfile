@@ -24,10 +24,15 @@ forge "https://forgeapi.puppetlabs.com"
 # A module from Github pre-packaged tarball
 # mod 'puppetlabs-apache', '0.6.0', :github_tarball => 'puppetlabs/puppetlabs-apache'
 
-mod 'stahnma/epel'
-mod 'bashtoni/timezone'
-
 mod 'puppetlabs-java'
 mod 'puppetlabs-tomcat'
-
-
+mod 'garethr-docker'
+mod 'jfryman-nginx'
+mod 'puppetlabs-mysql'
+mod 'puppetlabs-stdlib'
+mod 'example42-dovecot'
+mod 'thias-postfix'
+mod 'thias-mailman'
+mod 'thias-php'
+mod 'ssm-munin'
+mod 'puppetlabs-mongodb'
