@@ -4,6 +4,7 @@
   - "locations/%{::location}"
   - "environments/%{::envname}"
   - "profiles/%{::profile}"
+  - domains
   - common
 :backends:
   - yaml

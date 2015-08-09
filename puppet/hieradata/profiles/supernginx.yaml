@@ -1,8 +1,10 @@
+---
 classes:
   - nginx
   - mongodb
   - docker
   - roles::containers
+
 
 nginx::nginx_upstreams:
   'panel':
@@ -13,8 +15,14 @@ nginx::nginx_upstreams:
     ensure: present
     members:
       - localhost:3001
+  'queru.com':
+    ensure: present
+    members:
+      - localhost:3002
 nginx::nginx_vhosts:
   'panel.supernginx.com':
     proxy: 'http://panel'
   'dario.com':
     proxy: 'http://dario.com'
+  'queru.com':
+    proxy: 'http://queru.com'
