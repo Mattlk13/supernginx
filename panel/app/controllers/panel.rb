@@ -37,8 +37,20 @@ Panel::App.controllers :panel do
       render 'domain'
     end
     get :new_domain, :map => '/new_domain' do
-      puts 'rendering new_domain content'
-      render 'new_domain'
+      if params[:domain].blank?
+        puts 'rendering new_domain content'
+        render 'new_domain'
+      else
+        @newdomain=params[:domain]
+        @port=params[:port]
+        puts @newdomain
+        require 'yaml'
+        domains = YAML::load_file('/vagrant/puppet/hieradata/domains.yaml') #Load
+        new_domain_fields = {"hostname"=>@newdomain, "port"=>@port}
+        domains['domains'][@newdomain]= new_domain_fields
+        File.open('/vagrant/puppet/hieradata/domains.yaml', 'w') {|f| f.write domains.to_yaml } #Store
+        redirect_to '/'
+      end
     end
     
     get :login, :map => '/login' do

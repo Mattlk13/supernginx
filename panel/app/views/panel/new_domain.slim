@@ -5,7 +5,11 @@ div.modal.fade id="new_domain_modal" role="dialog"
         button.close data-dismiss="modal" &times
         h2 Add domain
       div.modal-body
-        p Register a new domain name
-        p Get here an already existing domain
-        p Registrars stuff
+        form(role="form" method="get" action="/new_domain")
+          div.form-group
+            label(for="domain") Domain name
+            input(class ="form-control" id="domain" name="domain" type="text" placeholder="enter domain name")
+            label(for="port") Port Number
+            input(class ="form-control" id="port" name="port" type="number" placeholder="enter port number")
 
+          button.btn(type="submit" value="Submit") Submit

@@ -1,9 +1,14 @@
 javascript:
   $(document).ready(function(){
-  $("#content").load("/new_domain").one();
+    $('li[id="newdomain"]').click(function(){
+      console.log("new domain item clicked");
+      $("#content").load("/new_domain", function(){
+        $('#new_domain_modal').modal('show');
+        console.log("new domain content loaded");
+      });
+    });
     $('li[id="domain"]').click(function(){
       var Domain = $(this).attr('domain');
-      console.log("mail list item clicked");
       $("#content").load("/domain?domain=" +Domain, function(){
         $('#domain_modal').modal('show');
         console.log("domains content loaded");
@@ -27,7 +32,7 @@ javascript:
     ul.dropdown-menu
       - @domains.each do |domain|
         li(id="domain", domain=domain.domain): a href="#" #{domain.domain}
-      li(id="newdomain"): a data-toggle="modal" data-target="#new_domain_modal" href="#" Add new domain  
+      li(id="newdomain"): a href="#" Add new domain 
 - else
   p No domains for the user #{@name}
 
