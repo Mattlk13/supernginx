@@ -41,14 +41,19 @@ Panel::App.controllers :panel do
         puts 'rendering new_domain content'
         render 'new_domain'
       else
+        ##This shall be a class, writes the new domain in the hiera yaml file puppet/hieradata/domains.yaml and redirects to /
         @newdomain=params[:domain]
         @port=params[:port]
+        #do proper logging (fixme)
         puts @newdomain
         require 'yaml'
-        domains = YAML::load_file('/vagrant/puppet/hieradata/domains.yaml') #Load
+        @domainsfile = '/vagrant/puppet/hieradata/domains.yaml'
+        domains = YAML::load_file(@domainsfile) #Load
         new_domain_fields = {"hostname"=>@newdomain, "port"=>@port}
         domains['domains'][@newdomain]= new_domain_fields
-        File.open('/vagrant/puppet/hieradata/domains.yaml', 'w') {|f| f.write domains.to_yaml } #Store
+        File.open(@domainsfile, 'w') {|f| f.write domains.to_yaml } #Store
+        #create the domain in the model
+        Domain.create(:domain => @newdomain, :users => session[:name], :ip => "default", :arecord => "default")
         redirect_to '/'
       end
     end

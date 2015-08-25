@@ -1,8 +1,14 @@
 ---
 domains:
-  'dario.com':
-    hostname: 'dario.com'
-    port: 3001
-  'queru.com':
-    hostname: 'queru.com'
-    port: 3002
+  test3:
+    hostname: test3
+    port: '333'
+  test4:
+    hostname: test4
+    port: '444'
+  queru.com:
+    hostname: queru.com
+    port: '3002'
+  dario.com:
+    hostname: dario.com
+    port: '3003'
