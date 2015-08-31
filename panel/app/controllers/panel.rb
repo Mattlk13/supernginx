@@ -1,6 +1,10 @@
 Panel::App.controllers :panel do
 
     helpers do
+      def puppetapply
+        command = "sudo /opt/puppetlabs/puppet/bin/puppet apply --color=false --modulepath=/etc/puppetlabs/code/localmodules:/etc/puppetlabs/code/modules --hiera_config=/etc/puppetlabs/code/hiera.yaml /etc/puppetlabs/code/manifests/site.pp"
+        system ( command )
+      end
       def protected!
         return if authorized?
         headers['WWW-Authenticate'] = 'Basic realm="Please authenticate"'
@@ -43,7 +47,7 @@ Panel::App.controllers :panel do
       else
         ##This shall be a class, writes the new domain in the hiera yaml file puppet/hieradata/domains.yaml and redirects to /
         @newdomain=params[:domain]
-        @port=params[:port]
+        @port=params[:port].to_i
         #do proper logging (fixme)
         puts @newdomain
         require 'yaml'
@@ -54,6 +58,31 @@ Panel::App.controllers :panel do
         File.open(@domainsfile, 'w') {|f| f.write domains.to_yaml } #Store
         #create the domain in the model
         Domain.create(:domain => @newdomain, :users => session[:name], :ip => "default", :arecord => "default")
+        puppetapply
+        redirect_to '/'
+      end
+    end
+    get :delete_domain, :map => '/delete_domain' do
+      if params[:domain].blank?
+        puts "no domain deleted"
+        redirect_to '/'
+      else
+        ##This shall be a class, writes the new domain in the hiera yaml file puppet/hieradata/domains.yaml and redirects to /
+        @deldomain=params[:domain]
+        #do proper logging (fixme)
+        puts @deldomain
+        require 'yaml'
+        @domainsfile = '/vagrant/puppet/hieradata/domains.yaml'
+        domains = YAML::load_file(@domainsfile) #Load
+        domains['domains'].delete(@deldomain)
+        File.open(@domainsfile, 'w') {|f| f.write domains.to_yaml } #Store
+        #create the domain in the model
+        Domain.delete_all(:domain => @deldomain, :users => session[:name])
+        stop_dockercontainer = system( "docker stop #{@deldomain}" )
+        puts "container #{@deldomain} stoped" if delete_dockercontainer = true
+        delete_dockercontainer = system( "docker rm #{@deldomain}" )
+        puts "container #{@deldomain} deleted" if delete_dockercontainer = true
+        puppetapply()
         redirect_to '/'
       end
     end

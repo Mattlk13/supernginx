@@ -5,7 +5,8 @@ classes:
   - docker
   - roles::containers
 
-
+docker::docker_users:
+  - vagrant
 nginx::nginx_upstreams:
   'panel':
     ensure: present
